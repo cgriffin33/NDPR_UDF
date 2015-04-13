@@ -15,13 +15,17 @@
 #define NDPR 0.2                                      /* Non-dimensional pitch rate */
 
 /* Define global variables */
-static real aoa;
-static real aoa_old;
-static real prate;
-static real aprate;
-static real Vmag;
-static real t_o;
-static real t;
+static real aoa, aoa_old, prate, aprate, Vmag, t_o, t;
+
+int open()
+{
+   /* open debug file for writing */
+   FILE * fp;
+   fp = fopen ("aoahistory.txt", "w+");
+   fprintf(fp, "%s %s %s", "Time", "Old AOA", "Current AOA");
+   
+   return (0);
+}
 
 DEFINE_PROFILE(x_velocity, thread, position) 
 {
@@ -60,6 +64,9 @@ DEFINE_PROFILE(y_velocity, thread, position)
          F_PROFILE(f, thread, position) = tan(aoa)*sqrt((Vmag*Vmag)/(1+(tan(aoa))));
       }
    end_f_loop(f, thread)
+   
+   
+   fprintf(fp, "%f.8 %f.8 %f.8", t, aoa_old, aoa);
    
    /* current aoa becomes aoa_old */
    aoa_old = aoa;
