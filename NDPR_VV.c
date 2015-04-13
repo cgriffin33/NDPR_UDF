@@ -15,11 +15,12 @@
 #define NDPR = 0.2;                                       /* Non-dimensional pitch rate */
 
 /* Define global variables */
-real aoa_old, prate, aoa;
-real Vmag = (RE*VISC)/(DENS*CHORD); /*Velocity magnitude*/
-real aprate = (NDPR*Vmag)/CHORD; /*Asymptotic pitching rate*/
-real t_o = (0.5*CHORD)/Vmag; /*Time at which the pitch rate has reach 99% of asymptotic pitching rate*/
-real t = CURRENT_TIME;
+real aoa, aoa_old, prate, aprate, Vmag, t_o, t;
+
+Vmag = (RE*VISC)/(DENS*CHORD); /*Velocity magnitude*/
+aprate = (NDPR*Vmag)/CHORD; /*Asymptotic pitching rate*/
+t_o = (0.5*CHORD)/Vmag; /*Time at which the pitch rate has reach 99% of asymptotic pitching rate*/
+t = CURRENT_TIME;
 
 /* Initialize aoa_old if this is first time step. */
 if (t == 0)
