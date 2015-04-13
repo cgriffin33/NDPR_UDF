@@ -23,6 +23,7 @@ int open()
    FILE * fp;
    fp = fopen ("aoahistory.txt", "w+");
    fprintf(fp, "%s %s %s", "Time", "Old AOA", "Current AOA");
+   fclose(fp);
    
    return (0);
 }
@@ -65,8 +66,10 @@ DEFINE_PROFILE(y_velocity, thread, position)
       }
    end_f_loop(f, thread)
    
-   
+   FILE * fp;
+   fp = fopen ("aoahistory.txt", "w+");
    fprintf(fp, "%f.8 %f.8 %f.8", t, aoa_old, aoa);
+   fclose(fp);
    
    /* current aoa becomes aoa_old */
    aoa_old = aoa;
