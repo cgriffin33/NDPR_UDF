@@ -16,9 +16,9 @@
 
 /* Define global variables */
 real aoa_old, prate, aoa;
-real Vmag = (Re*visc)/(dens*chord); /*Velocity magnitude*/
-real aprate = (ndprate*Vmag)/chord; /*Asymptotic pitching rate*/
-real t_o = (0.5*chord)/Vmag; /*Time at which the pitch rate has reach 99% of asymptotic pitching rate*/
+real Vmag = (RE*VISC)/(DENS*CHORD); /*Velocity magnitude*/
+real aprate = (NDPR*Vmag)/CHORD; /*Asymptotic pitching rate*/
+real t_o = (0.5*CHORD)/Vmag; /*Time at which the pitch rate has reach 99% of asymptotic pitching rate*/
 real t = CURRENT_TIME;
 
 /* Initialize aoa_old if this is first time step. */
