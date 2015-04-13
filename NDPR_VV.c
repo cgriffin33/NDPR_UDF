@@ -15,52 +15,46 @@
 #define NDPR = 0.2;                                       /* Non-dimensional pitch rate */
 
 /* Define global variables */
-real aoa;
-real aoa_old;
-real prate;
-real aprate;
-real Vmag;
-real t_o;
-real t;
-
-Vmag = (RE*VISC)/(DENS*CHORD); /*Velocity magnitude*/
-aprate = (NDPR*Vmag)/CHORD; /*Asymptotic pitching rate*/
-t_o = (0.5*CHORD)/Vmag; /*Time at which the pitch rate has reach 99% of asymptotic pitching rate*/
-t = CURRENT_TIME;
-
-/* Initialize aoa_old if this is first time step. */
-if (t == 0)
-  {aoa_old = 0;}
-
-/* Define the variable pitching rate in rad/s */
-prate = aprate*(1-exp((-4.6*t)/t_o));
-
-/* Calculate current aoa */
-aoa = aoa_old + (t*prate);
+static real aoa, aoa_old, prate, aprate, Vmag, t_o, t;
 
 DEFINE_PROFILE(x_velocity, thread, position) 
 {
-  face_t f;
-
-  /* Loop through the inlet boundary and assign x velocity component */
-  begin_f_loop(f, thread)
-    {
-      F_PROFILE(f, thread, position) = sqrt((Vmag*Vmag)/(1+(tan(aoa))));
-    }
-  end_f_loop(f, thread)
+   face_t f;
+   
+   Vmag = (RE*VISC)/(DENS*CHORD); /*Velocity magnitude*/
+   aprate = (NDPR*Vmag)/CHORD; /*Asymptotic pitching rate*/
+   t_o = (0.5*CHORD)/Vmag; /*Time at which the pitch rate has reach 99% of asymptotic pitching rate*/
+   t = CURRENT_TIME;
+   
+   /* Initialize aoa_old if this is first time step. */
+   if (t == 0)
+      {aoa_old = 0;}
+   
+   /* Define the variable pitching rate in rad/s */
+   prate = aprate*(1-exp((-4.6*t)/t_o));
+   
+   /* Calculate current aoa */
+   aoa = aoa_old + (t*prate);
+   
+   /* Loop through the inlet boundary and assign x velocity component */
+   begin_f_loop(f, thread)
+      {
+         F_PROFILE(f, thread, position) = sqrt((Vmag*Vmag)/(1+(tan(aoa))));
+      }
+   end_f_loop(f, thread)
 }
 
-DEFINE_PROFILE(y_velocity, thread, position) 
+DEFINE_PROFILE(y_velocity, thread, position)
 {
-  face_t f;
-  
-  /* Loop through the inlet boundary and assign y velocity component */
-  begin_f_loop(f, thread)
-    {   
-      F_PROFILE(f, thread, position) = tan(aoa)*sqrt((Vmag*Vmag)/(1+(tan(aoa))));
-    }
-  end_f_loop(f, thread)
+   face_t f;
+   
+   /* Loop through the inlet boundary and assign y velocity component */
+   begin_f_loop(f, thread)
+      {   
+         F_PROFILE(f, thread, position) = tan(aoa)*sqrt((Vmag*Vmag)/(1+(tan(aoa))));
+      }
+   end_f_loop(f, thread)
+   
+   /* current aoa becomes aoa_old */
+   aoa_old = aoa;
 }
-
-/* current aoa becomes aoa_old */
-aoa_old = aoa;
