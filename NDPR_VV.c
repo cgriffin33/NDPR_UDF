@@ -8,11 +8,11 @@
 #include "udf.h"
 
 /* Define constants in SI units */
-#define RE = 10000;                                       /* Reynolds number */
-#define VISC = 1.7894E-5;                                 /* viscosity, N*s/m^2 */ 
-#define DENS = 1.225;                                     /* density, kg/m^3 */
-#define CHORD = 0.2921;                                   /* chord length, m */
-#define NDPR = 0.2;                                       /* Non-dimensional pitch rate */
+#define RE 10000;                                       /* Reynolds number */
+#define VISC 1.7894E-5;                                 /* viscosity, N*s/m^2 */ 
+#define DENS 1.225;                                     /* density, kg/m^3 */
+#define CHORD 0.2921;                                   /* chord length, m */
+#define NDPR 0.2;                                       /* Non-dimensional pitch rate */
 
 /* Define global variables */
 static real aoa, aoa_old, prate, aprate, Vmag, t_o, t;
