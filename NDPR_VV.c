@@ -64,3 +64,4 @@ DEFINE_PROFILE(y_velocity, thread, position)
    /* current aoa becomes aoa_old */
    aoa_old = aoa;
 }
+
