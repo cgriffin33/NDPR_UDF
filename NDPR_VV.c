@@ -15,7 +15,13 @@
 #define NDPR = 0.2;                                       /* Non-dimensional pitch rate */
 
 /* Define global variables */
-real aoa, aoa_old, prate, aprate, Vmag, t_o, t;
+real aoa;
+real aoa_old;
+real prate;
+real aprate;
+real Vmag;
+real t_o;
+real t;
 
 Vmag = (RE*VISC)/(DENS*CHORD); /*Velocity magnitude*/
 aprate = (NDPR*Vmag)/CHORD; /*Asymptotic pitching rate*/
