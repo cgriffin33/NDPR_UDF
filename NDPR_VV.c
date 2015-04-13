@@ -17,17 +17,6 @@
 /* Define global variables */
 static real aoa, aoa_old, prate, aprate, Vmag, t_o, t;
 
-int open()
-{
-   /* open debug file for writing */
-   FILE * fp;
-   fp = fopen ("aoahistory.txt", "w+");
-   fprintf(fp, "%s %s %s", "Time", "Old AOA", "Current AOA");
-   fclose(fp);
-   
-   return (0);
-}
-
 DEFINE_PROFILE(x_velocity, thread, position) 
 {
    face_t f;
@@ -67,7 +56,7 @@ DEFINE_PROFILE(y_velocity, thread, position)
    end_f_loop(f, thread)
    
    FILE * fp;
-   fp = fopen ("aoahistory.txt", "w+");
+   fp = fopen ("aoahistory.txt", "a");
    fprintf(fp, "%f.8 %f.8 %f.8", t, aoa_old, aoa);
    fclose(fp);
    
