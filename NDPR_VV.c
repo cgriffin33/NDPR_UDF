@@ -15,7 +15,8 @@
 #define NDPR 0.2                                      /* Non-dimensional pitch rate */
 
 /* Define global variables */
-static real aoa, aoa_old, prate, aprate, Vmag, t_o, t, ts, ts_old;
+static real aoa, aoa_old, prate, aprate, Vmag, t_o, t;
+static int ts, ts_old;
 
 DEFINE_PROFILE(x_velocity, thread, position) 
 {
