@@ -28,6 +28,9 @@ DEFINE_PROFILE(x_velocity, thread, position)
    t = CURRENT_TIME;
    ts = N_TIME;
    
+      /* Define the variable pitching rate in rad/s */
+   prate = aprate*(1-exp((-4.6*t)/t_o));
+   
    /* Initialize aoa_old if this is first time step. */
    if (t == 0)
       {aoa_old = 0;}
@@ -41,9 +44,6 @@ DEFINE_PROFILE(x_velocity, thread, position)
       {
          aoa = aoa_old;
       }
-   
-   /* Define the variable pitching rate in rad/s */
-   prate = aprate*(1-exp((-4.6*t)/t_o));
    
    /* Loop through the inlet boundary and assign x velocity component */
    begin_f_loop(f, thread)
@@ -66,7 +66,7 @@ DEFINE_PROFILE(y_velocity, thread, position)
    
    FILE * fp;
    fp = fopen ("aoahistory.txt", "a");
-   fprintf(fp, "%d %e %e %e \n", ts, t, aoa_old, aoa);
+   fprintf(fp, "%d %e %e %e \n", ts, t, aoa_old, aoa,);
    fclose(fp);
    
    /* current aoa becomes aoa_old */
