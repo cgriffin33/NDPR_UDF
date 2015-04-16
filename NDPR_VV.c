@@ -16,7 +16,7 @@
 
 /* Define global variables */
 static real aoa, aoa_old, prate, aprate, Vmag, t_o, t;
-static int ts, ts_old;
+static real ts, ts_old;
 
 DEFINE_PROFILE(x_velocity, thread, position) 
 {
@@ -66,7 +66,7 @@ DEFINE_PROFILE(y_velocity, thread, position)
    
    FILE * fp;
    fp = fopen ("aoahistory.txt", "a");
-   fprintf(fp, "%d %e %e %e \n", ts, t, aoa_old, aoa);
+   fprintf(fp, "%e %e %e %e \n", ts, t, aoa_old, aoa);
    fclose(fp);
    
    /* current aoa becomes aoa_old */
