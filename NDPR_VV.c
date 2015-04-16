@@ -48,7 +48,7 @@ DEFINE_PROFILE(x_velocity, thread, position)
    /* Loop through the inlet boundary and assign x velocity component */
    begin_f_loop(f, thread)
       {
-         F_PROFILE(f, thread, position) = sqrt((Vmag*Vmag)/(1+(tan(aoa))));
+         F_PROFILE(f, thread, position) = Vmag*cos(aoa);
       }
    end_f_loop(f, thread)
 }
@@ -60,7 +60,7 @@ DEFINE_PROFILE(y_velocity, thread, position)
    /* Loop through the inlet boundary and assign y velocity component */
    begin_f_loop(f, thread)
       {   
-         F_PROFILE(f, thread, position) = tan(aoa)*sqrt((Vmag*Vmag)/(1+(tan(aoa))));
+         F_PROFILE(f, thread, position) = Vmag*sin(aoa);
       }
    end_f_loop(f, thread)
    
