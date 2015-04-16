@@ -26,7 +26,7 @@ DEFINE_PROFILE(x_velocity, thread, position)
    aprate = (NDPR*Vmag)/CHORD; /*Asymptotic pitching rate*/
    t_o = (0.5*CHORD)/Vmag; /*Time at which the pitch rate has reach 99% of asymptotic pitching rate*/
    t = CURRENT_TIME;
-   ts = CURRENT_TIMESTEP;
+   ts = N_ITER;
    
    /* Initialize aoa_old if this is first time step. */
    if (t == 0)
