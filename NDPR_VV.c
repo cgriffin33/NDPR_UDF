@@ -66,7 +66,7 @@ DEFINE_PROFILE(y_velocity, thread, position)
    
    FILE * fp;
    fp = fopen ("aoahistory.txt", "a");
-   fprintf(fp, "%e %e %e %e \n", ts, t, aoa_old, aoa);
+   fprintf(fp, "%d %e %e %e \n", ts, t, aoa_old, aoa);
    fclose(fp);
    
    /* current aoa becomes aoa_old */
