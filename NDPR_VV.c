@@ -15,7 +15,7 @@
 #define NDPR 0.2                                      /* Non-dimensional pitch rate */
 
 /* Define global variables */
-static real aoa, aoa_old, prate, aprate, Vmag, t_o, t;
+static real aoa, aoa_old, prate, aprate, Vmag, t_o, t, ts, ts_old;
 
 DEFINE_PROFILE(x_velocity, thread, position) 
 {
@@ -25,16 +25,24 @@ DEFINE_PROFILE(x_velocity, thread, position)
    aprate = (NDPR*Vmag)/CHORD; /*Asymptotic pitching rate*/
    t_o = (0.5*CHORD)/Vmag; /*Time at which the pitch rate has reach 99% of asymptotic pitching rate*/
    t = CURRENT_TIME;
+   ts = CURRENT_TIMESTEP;
    
    /* Initialize aoa_old if this is first time step. */
    if (t == 0)
       {aoa_old = 0;}
    
+   if (ts > ts_old)
+      {
+         /* Calculate current aoa */
+         aoa = aoa_old + (t*prate);
+      }
+   else
+      {
+         aoa = aoa_old;
+      }
+   
    /* Define the variable pitching rate in rad/s */
    prate = aprate*(1-exp((-4.6*t)/t_o));
-   
-   /* Calculate current aoa */
-   aoa = aoa_old + (t*prate);
    
    /* Loop through the inlet boundary and assign x velocity component */
    begin_f_loop(f, thread)
@@ -57,10 +65,12 @@ DEFINE_PROFILE(y_velocity, thread, position)
    
    FILE * fp;
    fp = fopen ("aoahistory.txt", "a");
-   fprintf(fp, "%f.8 %f.8 %f.8\n", t, aoa_old, aoa);
+   fprintf(fp, "%d %f %f %f\n", ts, t, aoa_old, aoa);
    fclose(fp);
    
    /* current aoa becomes aoa_old */
    aoa_old = aoa;
+   /* current timestep becomes t_old */
+   ts_old = ts;
 }
 
