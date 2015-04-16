@@ -16,7 +16,7 @@
 
 /* Define global variables */
 static real aoa, aoa_old, prate, aprate, Vmag, t_o, t;
-static real ts, ts_old;
+static int ts, ts_old;
 
 DEFINE_PROFILE(x_velocity, thread, position) 
 {
